@@ -1,5 +1,6 @@
 # Makefile
 
+GOPATH := ${PWD}/modules
 	export GOPATH
 
 ALL     := test01
@@ -13,7 +14,6 @@ test01: test01_pck/src/main.go \
         modules/src/echo_args/echo_args.go \
         modules/src/minimath/minimath.go \
 
-%:	GOPATH := ${PWD}/$*_pck:${PWD}/modules
 %:	
 	rm -f ./$* 2>&1 || true
 	cd $*_pck/src/; go build -o ../../$* *.go
