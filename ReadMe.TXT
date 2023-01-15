@@ -5,3 +5,4 @@ will be useful for other outsiders.
 QuickStart:
     make clean
     make test01
+    ./test01 *
