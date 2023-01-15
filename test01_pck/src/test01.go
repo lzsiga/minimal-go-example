@@ -1,4 +1,4 @@
-// test01_pkg/src/main.go
+// test01_pkg/src/test01.go
 
 package main
 
@@ -16,4 +16,7 @@ func main() {
     sample2()
     fmt.Printf("gcd(56,24)=%d, lcm(56,24)=%d\n",
         minimath.Gcd(56, 24), minimath.Lcm(56,24))
+    fmt.Printf("Testing C-rutin: (-8)^(1/3)=%f, (-8)^(2/3)=%f\n",
+        minimath.Mypow(-8, 1, 3), minimath.Mypow(-8, 2, 3))
+
 }

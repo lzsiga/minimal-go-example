@@ -1,4 +1,4 @@
-// test01_pkg/src/main2.go
+// test01_pkg/src/test01_a.go
 
 package main
 
