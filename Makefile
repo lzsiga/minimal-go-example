@@ -10,7 +10,7 @@ ALL    := test01 test02
 #  function in another package
 #  function written in C
 
-# test01: go calls C: dlsym (dlfcn.h)
+# test02: go calls C: dlsym (dlfcn.h)
 
 clean:
 	rm -f ${ALL} 2>/dev/null || true
