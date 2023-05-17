@@ -7,7 +7,7 @@ QuickStart:
     make test01
     ./test01 *
 
-    make test01
+    make test02
     ./test02
 
 test01: minimal example, using
