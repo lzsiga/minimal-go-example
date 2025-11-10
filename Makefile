@@ -25,6 +25,8 @@ clean:
 	rm -f ${ALL} 2>/dev/null || true
 	rm -rf ~/.cache/go-build/ 2>/dev/null || true
 
+test03: test03_pck/src/test03.go
+
 %:
 	rm -f ./$@ 2>&1 || true
 	cd $@_pck/src; GOPATH='${GOPATH}' go build -o ../../$@ .
