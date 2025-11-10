@@ -1,8 +1,17 @@
 # Makefile
 
 GOPATH := ${PWD}/modules
+GO111MODULE := off
+
+export GOPATH GO111MODULE
 
 ALL    := test01 test02
+
+all: ${ALL}
+	@printf "Your binary files:\n"
+	@ls -l ${ALL}
+	@printf "\nTo see the binary files created behind your back:\n"
+	@printf "(cd ~/.cache/go-build/; find . -type f -exec ls -l {} +)\n"
 
 # test01: minimal example, using
 #  function in the same file
