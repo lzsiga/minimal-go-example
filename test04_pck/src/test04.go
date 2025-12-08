@@ -58,6 +58,58 @@ func prod (a [N][N]int, b [N][N]int) [N][N]int {
     return c;
 }
 
+func prod_Av (a [N][N]int, b [N]int) [N]int {
+    var i int
+    var k int
+    var c [N]int
+    for i=0; i<N; i++ {
+        var sum= 0
+        for k=0; k<N; k++ {
+            sum += a[i][k]*b[k]
+        }
+        c[i]= sum
+    }
+    return c;
+}
+
+// actually, it is (bᵀA)ᵀ
+func prod_vA (b [N]int, a [N][N]int) [N]int {
+    var j int
+    var k int
+    var c [N]int
+    for j=0; j<N; j++ {
+        var sum= 0
+        for k=0; k<N; k++ {
+            sum += b[k]*a[k][j]
+        }
+        c[j]= sum
+    }
+    return c;
+}
+
+// result = a⋅b = aᵀb
+func prod_vv (a [N]int, b [N]int) int {
+    var sum int = 0
+    var k int
+    for k=0; k<N; k++ {
+        sum += a[k]*b[k]
+    }
+    return sum;
+}
+
+// result = abᵀ
+func prod_ext (a [N]int, b [N]int) [N][N]int {
+    var c [N][N]int
+    var i int
+    var j int
+    for i=0; i<N; i++ {
+        for j=0; j<N; j++ {
+            c[i][j]= a[i]*b[j]
+        }
+    }
+    return c;
+}
+
 func main () {
     var arr [N][N]int
 
