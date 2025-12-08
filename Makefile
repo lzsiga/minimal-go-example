@@ -5,7 +5,7 @@ GO111MODULE := off
 
 export GOPATH GO111MODULE
 
-ALL    := test01 test02
+ALL    := test01 test02 test03 test04
 
 all: ${ALL}
 	@printf "Your binary files:\n"
@@ -26,6 +26,7 @@ clean:
 	rm -rf ~/.cache/go-build/ 2>/dev/null || true
 
 test03: test03_pck/src/test03.go
+test04: test04_pck/src/test04.go
 
 %:
 	rm -f ./$@ 2>&1 || true
