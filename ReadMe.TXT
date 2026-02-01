@@ -17,3 +17,9 @@ test01: minimal example, using
   function written in C
 
 test02: go calls C: dlsym (dlfcn.h)
+
+test03: testing utf8
+
+test04: testing arrays
+
+standalone: some more single-file source

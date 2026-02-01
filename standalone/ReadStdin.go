@@ -5,10 +5,7 @@ package main
 import "fmt"
 
 func main() {
-    var num int
-    var num1 int
-    var num2 int
-    var n int
+    var num, num1, num2, n int
     var err error
     var str string
 
@@ -21,7 +18,7 @@ func main() {
     fmt.Printf("Got %d values: num1=%d num2=%d\n", n, num1, num2)
 
     fmt.Printf("Enter some string ('Scanln'): ")
-    fmt.Scanln("%s", &str)
-    fmt.Sscanf(str, "%d", num);
+    fmt.Scanln(&str)
+    fmt.Sscanf(str, "%d", &num);
     fmt.Printf("Got \"%s\"\nAs int: %d\n", str, num);
 }
