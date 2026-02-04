@@ -8,3 +8,5 @@ go build gcd.go        && ./gcd
 go build randtest.go   && ./randtest
 go build switchtest.go && ./switchtest
 go build ptrtest.go    && ./ptrtest
+go build stringtest.go && ./stringtest
+
