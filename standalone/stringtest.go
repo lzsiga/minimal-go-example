@@ -39,6 +39,16 @@ func reverseBytes (s string) string {
     return result
 }
 
+/* this doesn't work: string cannot be changed this way
+func reverseBytes2 (s string) string {
+    var result string= ""
+    var len= len(s)
+    for i:=0; i<len; i++ {
+        result[len-1:len] = s[i:i+1]
+    }
+    return result
+} */
+
 func reverseString (s string) string {
     var result string= ""
     var code rune
@@ -46,6 +56,18 @@ func reverseString (s string) string {
         result= string(code)+result
     }
     return result
+}
+
+/* now we are using a 'slice' which is an array with dynamic length */
+func reverseString2 (s string) string {
+    var runeVect []rune = []rune(s)
+    var len= len(runeVect)
+    var result []rune = make([]rune, len, len)
+    var i int
+    for i=0; i<len; i++ {
+        result[len-1-i]= runeVect[i]
+    }
+    return string(result)
 }
 
 func main () {
@@ -70,6 +92,7 @@ func main () {
             Test2 (s)
             fmt.Printf ("Bytes reverse of '%s' is '%s'\n", s, reverseBytes(s))
             fmt.Printf ("String reverse of '%s' is '%s'\n", s, reverseString(s))
+            fmt.Printf ("String reverse of '%s' is '%s' (method 2)\n", s, reverseString2(s))
         }
     }
 }
