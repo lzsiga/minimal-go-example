@@ -12,7 +12,7 @@ type ChessTable struct {
 
 /* Is the specfied field attacked by any of the 'nset' queens? */
 
-func isFieldAttacked (table *ChessTable, row int, col int) bool {
+func isFieldAttacked (table *ChessTable, col int, row int) bool {
     if row<1 || row>8 || col<1 || col>8 {
         panic("invalid parameter(s) in 'isFieldAttacked'\n")
     }
@@ -28,6 +28,23 @@ func isFieldAttacked (table *ChessTable, row int, col int) bool {
     return fAttack
 }
 
+/* find the first available field in a row,
+   return value: true/false = found/not found
+   retrow: the found row (1..8) or -1
+ */
+
+func findAvailableField (table *ChessTable, col int, minrow int, retrow *int) bool {
+    var foundrow int = -1
+    for r:=minrow; foundrow==-1 && r<=8; r++ {
+        if !isFieldAttacked(table, col, r) {
+            foundrow = r
+        }
+    }
+    var found= (foundrow!=-1)
+    *retrow= foundrow
+    return found
+}
+
 func printTable (table *ChessTable) {
     fmt.Printf (" +--------+\n")
     for r:=8; r>=1; r-- {
@@ -36,29 +53,11 @@ func printTable (table *ChessTable) {
             if table.nset>=c && table.row[c]==r {
                 fmt.Printf("Q")
             } else {
-                fmt.Printf(" ")
-            }
-        }
-        fmt.Printf ("|\n")
-    }
-    fmt.Printf (" +--------+\n\n")
-}
-
-func Test1 () {
-    var table ChessTable
-    table.nset= 2
-    table.row[1]= 1
-    table.row[2]= 8
-    printTable (&table)
-
-    fmt.Printf (" +--------+\n")
-    for r:=8; r>=1; r-- {
-        fmt.Printf (" |")
-        for c:=1; c<=8; c++ {
-            if isFieldAttacked (&table, r, c) {
-                fmt.Printf("*")
-            } else {
-                fmt.Printf(" ")
+                if (c-r)%2==0 {
+                    fmt.Printf("▒")
+                } else {
+                    fmt.Printf(" ")
+                }
             }
         }
         fmt.Printf ("|\n")
@@ -69,30 +68,38 @@ func Test1 () {
 func main () {
     var table ChessTable
     table.nset= 0
+    table.row[1]= 0
     var col int = 1
     var row int = 0
+    var nsolutions = 0
     var allDone bool = false
 
+/* This algorithm is called 'backtrack';
+   it means sometimes we enter dead-ends and have to turn back.
+   For details see this: https://en.wikipedia.org/wiki/Backtracking
+ */
+
     for ;!allDone; {
-        var found bool = false
-        for row= table.row[col]; row<=8; row++ {
-            if !isFieldAttacked (table, row, col) { found= true }
-        }
-        if found {
+        var minrow int = table.row[col]+1
+        var found bool = findAvailableField (&table, col, minrow, &row)
+/* fmt.Printf("findAvailableField(col=%d,min=%d) returned %d; nset=%d\n", col, minrow, row, table.nset) */
+        if found {                    /* ok, there is an available field in this column */
             table.nset= col
             table.row[col]= row
-            if col==8 {
-                printTable (table)
-            } else {
+            if col<8 {                /* either we move right */
                 col++
                 table.row[col]= 0
+            } else {                  /* or we have found a solution */
+                nsolutions++
+                fmt.Printf("Solution #%d\n", nsolutions)
+                printTable (&table)   /* we go on, there might be other solution(s) */
             }
-        } else {
-            if col==1 {
-                allDone= true
-            } else {
+        } else {                      /* sadly, there is no available field in this column */
+            if col>1 {                /* either we move left */
                 col--
-                table.nset= col
+                table.nset= col-1
+            } else {                  /* or there is no (more) solutions */
+                allDone= true
             }
         }
     }
