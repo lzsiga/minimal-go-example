@@ -10,3 +10,4 @@ go build switchtest.go && ./switchtest
 go build ptrtest.go    && ./ptrtest     # it has pointers (including pointer-pointers and array-pointers)
 go build stringtest.go && ./stringtest
 gi build q8.go         && ./q8          # it has structure and pointer as function-paramater
+gi build typetest.go   && ./typetest    # conversions, integer divison, use-before-declaration
